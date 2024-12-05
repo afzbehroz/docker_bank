@@ -11,7 +11,8 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:3001/sessions", {
+            const response = await fetch("http://50.16.125.222:3001/sessions", {
+                // Updated URL
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

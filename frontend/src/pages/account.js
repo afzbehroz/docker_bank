@@ -16,7 +16,7 @@ export default function Account() {
 
             try {
                 const response = await fetch(
-                    "http://localhost:3001/me/accounts",
+                    "http://50.16.125.222:3001/me/accounts", // Updated URL
                     {
                         method: "POST",
                         headers: {
@@ -60,7 +60,7 @@ export default function Account() {
 
         try {
             const response = await fetch(
-                "http://localhost:3001/me/accounts/transactions",
+                "http://50.16.125.222:3001/me/accounts/transactions", // Updated URL
                 {
                     method: "POST",
                     headers: {

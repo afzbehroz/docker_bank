@@ -1,8 +1,1 @@
-{
-  "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/account": "pages/account.js",
-  "/login": "pages/login.js",
-  "/create-user": "pages/create-user.js"
-}
+{"/_app":"pages/_app.js","/account":"pages/account.html","/_document":"pages/_document.js","/create-user":"pages/create-user.html","/login":"pages/login.html","/":"pages/index.html","/_error":"pages/_error.js","/api/hello":"pages/api/hello.js","/404":"pages/404.html"}

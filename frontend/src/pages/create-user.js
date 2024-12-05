@@ -9,7 +9,8 @@ export default function CreateUser() {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:3001/users", {
+            const response = await fetch("http://50.16.125.222:3001/users", {
+                // Updated URL
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

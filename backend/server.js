@@ -3,15 +3,27 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mysql from "mysql2/promise";
 import bcrypt from "bcryptjs"; // Import bcryptjs for hashing passwords
+import dotenv from "dotenv";
+
+dotenv.config(); // Load environment variables from .env
+
+// Log to confirm environment variables are loaded correctly
+console.log("Database Config:", {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
+});
 
 const app = express();
 
 const pool = mysql.createPool({
-    host: "localhost", // MySQL host
-    user: "root", // MySQL username (root)
-    password: "root", // MySQL password (root)
-    database: "Bank3", // The database you created
-    port: 3306, // Default MySQL port
+    host: process.env.DB_HOST || "mysql", // Default to 'mysql' for Docker containers
+    user: process.env.DB_USER || "root", // Default to 'root'
+    password: process.env.DB_PASSWORD || "root", // Default to 'root'
+    database: process.env.DB_NAME || "Bank3", // Default to 'Bank3'
+    port: process.env.DB_PORT || 3306, // Default to 3306
 });
 
 // Middleware
@@ -56,7 +68,7 @@ app.post("/users", async (req, res) => {
         });
     } catch (error) {
         // Log the error to the console for debugging
-        console.error("Error in /users route:", error);
+        console.error("Error in /users route:", error.message, error.stack);
         res.status(500).send("Database error");
     }
 });
@@ -93,7 +105,7 @@ app.post("/sessions", async (req, res) => {
 
         res.status(200).send({ message: "Login successful", token });
     } catch (error) {
-        console.error("Error in /sessions route:", error);
+        console.error("Error in /sessions route:", error.message, error.stack);
         res.status(500).send("Database error");
     }
 });
@@ -128,7 +140,7 @@ app.get("/account", async (req, res) => {
 
         res.status(200).send({ account: accounts[0] });
     } catch (error) {
-        console.error("Error in /account route:", error);
+        console.error("Error in /account route:", error.message, error.stack);
         res.status(500).send("Database error");
     }
 });
@@ -163,7 +175,11 @@ app.post("/me/accounts", async (req, res) => {
 
         res.status(200).send({ balance: accounts[0].amount });
     } catch (error) {
-        console.error("Error in /me/accounts route:", error);
+        console.error(
+            "Error in /me/accounts route:",
+            error.message,
+            error.stack
+        );
         res.status(500).send("Database error");
     }
 });
@@ -209,13 +225,17 @@ app.post("/me/accounts/transactions", async (req, res) => {
             balance: newBalance,
         });
     } catch (error) {
-        console.error("Error in /me/accounts/transactions route:", error);
+        console.error(
+            "Error in /me/accounts/transactions route:",
+            error.message,
+            error.stack
+        );
         res.status(500).send("Database error");
     }
 });
 
 // Start the server
-const port = 3001;
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
     console.log(`Bank backend is running at http://localhost:${port}`);
 });
